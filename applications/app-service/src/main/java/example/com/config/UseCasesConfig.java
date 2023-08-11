@@ -1,14 +1,16 @@
 package example.com.config;
 
-import org.springframework.context.annotation.ComponentScan;
+import example.com.usecase.person.PersonUseCase;
+import example.com.usecase.person.PersonUseCaseImpl;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 
 @Configuration
-@ComponentScan(basePackages = "example.com.usecase",
-        includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^.+UseCase$")
-        },
-        useDefaultFilters = false)
 public class UseCasesConfig {
+
+        @Bean
+        public PersonUseCase test() {
+                return new PersonUseCaseImpl();
+        }
+
 }
