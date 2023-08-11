@@ -1,8 +1,6 @@
 allprojects {
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
     }
 }
 
@@ -11,16 +9,15 @@ subprojects {
     apply plugin: 'jacoco'
     apply plugin: 'io.spring.dependency-management'
 
-    //compileJava.dependsOn validateStructure
-    validateStructure.setEnabled(false)
+    compileJava.dependsOn validateStructure
     sourceCompatibility = JavaVersion.VERSION_17
+
     test {
         useJUnitPlatform()
     }
+
     dependencies {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        //implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation platform('software.amazon.awssdk:bom:2.20.117')
         implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
 
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -67,6 +64,7 @@ tasks.withType(JavaCompile).configureEach {
             '-Amapstruct.suppressGeneratorTimestamp=true'
     ]
 }
+
 tasks.named('wrapper') {
     gradleVersion = '8.1.1'
 }

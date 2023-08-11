@@ -1,18 +1,16 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-	implementation project( ':excel-adapter')
-	implementation project( ':rest-consumer')
-	implementation 'com.fasterxml.jackson.core:jackson-databind'
-	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
-	implementation project( ':jpa-repository')
-	implementation project( ':utils')
-	implementation project( ':api-rest')
+
     implementation project(':model')
     implementation project(':usecase')
-    implementation 'org.springframework.boot:spring-boot-starter'
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	implementation project(':rest-consumer')
+	implementation project(':api-rest')
+	implementation project(':utils')
+
     testImplementation 'com.tngtech.archunit:archunit:1.0.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter'
 }
 
 tasks.register('explodedJar', Copy) {
@@ -25,6 +23,5 @@ jar {
 }
 
 bootJar {
-    // Sets output jar name
     archiveFileName = "${project.getParent().getName()}.${archiveExtension.get()}"
 }
